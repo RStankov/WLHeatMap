@@ -29,6 +29,7 @@ import view.map.BaseWaypointPainter;
 public class Map extends JXMapKit {
 	public final double DEFUALT_LATITUDE = 43.222944;
 	public final double DEFAULT_LONGITUDE = 27.935925;
+	public final int DEFAULT_ZOOM = 1;
 	
 	protected EventListenerList _waypointEventListeners = new EventListenerList();
 	
@@ -45,7 +46,7 @@ public class Map extends JXMapKit {
 	private void init(double latitude, double longitude){
 		setDefaultProvider( JXMapKit.DefaultProviders.valueOf("OpenStreetMaps") );
 		setCenterPosition(new GeoPosition(latitude, longitude));
-		setZoom(1);
+		setZoom(DEFAULT_ZOOM);
 		setMiniMapVisible(false);
 		setZoomButtonsVisible(false);
 		setZoomSliderVisible(false);
