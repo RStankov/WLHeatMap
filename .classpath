@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="./vendor/sqlitejdbc-v056.jar"/>
+	<classpathentry kind="lib" path="./vendor/bluecove-2.1.0.jar"/>
+	<classpathentry kind="lib" path="./vendor/swing-layout-1.0.3.jar"/>
+	<classpathentry kind="lib" path="./vendor/swing-worker-1.1.jar"/>
+	<classpathentry kind="lib" path="./vendor/swing-worker.jar"/>
+	<classpathentry kind="lib" path="./vendor/swingx-bean.jar"/>
+	<classpathentry kind="lib" path="./vendor/swingx-ws-2007_10_14.jar"/>
+	<classpathentry kind="lib" path="./vendor/swingx.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
