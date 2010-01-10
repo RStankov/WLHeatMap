@@ -2,7 +2,6 @@ package view.points;
 
 import java.util.Set;
 import java.util.HashSet;
-import java.awt.GridLayout;
 
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
