@@ -52,7 +52,11 @@ public class Map extends JXMapKit {
 		setZoomButtonsVisible(false);
 		setZoomSliderVisible(false);
 		
-		getMainMap().addMouseListener(new MouseListener(){
+		JXMapViewer map = getMainMap();
+    	
+    	map.setZoomEnabled(false);
+    	map.setPanEnabled(false);
+		map.addMouseListener(new MouseListener(){
 			@Override
 			public void mouseClicked(MouseEvent event) {
                 Waypoint waypoint = getWaypoint(event.getPoint());
@@ -117,7 +121,7 @@ public class Map extends JXMapKit {
         listenerList.remove(WaypointClickListener.class, listener);
     }
 
-    void fireWaypointClickEvent(WaypointClickEvent event) {
+    public void fireWaypointClickEvent(WaypointClickEvent event) {
         Object[] listeners = listenerList.getListenerList();
         // 2 elements - first is the listener class, second is the listener instance
         for (int i=0; i<listeners.length; i+=2) {
