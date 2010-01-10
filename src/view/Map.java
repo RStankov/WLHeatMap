@@ -22,6 +22,7 @@ import db.models.NetworkSignal;
 import view.event.WaypointClickEvent;
 import view.event.WaypointClickListener;
 import view.map.BaseWaypoint;
+import view.map.CacheTileProvider;
 import view.map.NetworkWaypoint;
 import view.map.BaseWaypointPainter;
 
@@ -44,7 +45,7 @@ public class Map extends JXMapKit {
 	}
 	
 	private void init(double latitude, double longitude){
-		setDefaultProvider( JXMapKit.DefaultProviders.valueOf("OpenStreetMaps") );
+		setTileFactory(CacheTileProvider.getDefaultTileFactory());
 		setCenterPosition(new GeoPosition(latitude, longitude));
 		setZoom(DEFAULT_ZOOM);
 		setMiniMapVisible(false);
