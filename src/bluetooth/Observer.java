@@ -15,6 +15,10 @@ public class Observer extends Thread {
 	private ObserverAction action;
 	
 	public Observer(String connectionUrl){
+		if (!connectionUrl.startsWith("btspp://")){
+			connectionUrl = ServiceFinder.getConnectionUrl(RemoteDeviceFinder.getDevice(connectionUrl));
+		}
+		
 		this.connectionUrl = connectionUrl;
 		this.maxCount = -1;
 		this.records = new ArrayList<Record>();
