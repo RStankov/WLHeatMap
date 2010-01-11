@@ -11,15 +11,30 @@ import gps.Parser;
 public class Observer extends Thread {
 	private String connectionUrl;
 	private int maxCount = -1;
-	private List<Record> loadedRecords;
+	private List<Record> records;
+	private ObserverAction action;
 	
 	public Observer(String connectionUrl){
+		if (!connectionUrl.startsWith("btspp://")){
+			connectionUrl = ServiceFinder.getConnectionUrl(RemoteDeviceFinder.getDevice(connectionUrl));
+		}
+		
 		this.connectionUrl = connectionUrl;
-		this.loadedRecords = new ArrayList<Record>();
+		this.maxCount = -1;
+		this.records = new ArrayList<Record>();
+		this.action = null;
 	}
 	
 	public void setMaxRecords(int value){
 		maxCount = value;
+	}
+	
+	public void setAction(ObserverAction action){
+		this.action = action;
+	}
+	
+	public List<Record> getGpsRecords(){
+		return records;
 	}
 	
 	public void run(){
@@ -37,23 +52,27 @@ public class Observer extends Thread {
 					
 					String serialData = new String(rawData);
 					
-					//System.out.println("[" + serialData + "]");
+					// System.out.println(serialData);
 			
 					Record gpsDataRecord = null;
 					try{
 						gpsDataRecord = Parser.parseRecrod(serialData);
-						
-						if (gpsDataRecord != null && gpsDataRecord.isValid() && loadedRecords.contains(gpsDataRecord)){
-							System.out.println(gpsDataRecord);
-							
-							loadedRecords.add(gpsDataRecord);
-							
-							if (maxCount > 0 && loadedRecords.size() >= maxCount){
-								readData = false;
-							}
-						}
 					} catch (Exception e){
 						System.out.println("GPS data parsing exception:" + e.getMessage());
+					}
+					
+					if (gpsDataRecord != null && gpsDataRecord.isValid() && !records.contains(gpsDataRecord)){
+						// System.out.println(gpsDataRecord);
+						
+						if (this.action != null){
+							this.action.on(gpsDataRecord);
+						}
+						
+						records.add(gpsDataRecord);
+						
+						if (maxCount > 0 && records.size() >= maxCount){
+							readData = false;
+						}
 					}
 				}
 			}
@@ -61,7 +80,7 @@ public class Observer extends Thread {
 			in.close();
 			connection.close();
 			
-		}catch(IOException ioe){
+		} catch(IOException ioe){
 			ioe.printStackTrace();
 		}		
 	}

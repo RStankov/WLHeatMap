@@ -17,7 +17,7 @@ public class PointWaypoint extends BaseWaypoint {
 
 	@Override
 	public int getSize() {
-		return point.getNetworks().size() * 5;
+		return (point.getNetworks().size() * 5) % 20;
 	}
 
 }
