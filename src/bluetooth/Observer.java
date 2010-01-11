@@ -11,13 +11,13 @@ import gps.Parser;
 public class Observer extends Thread {
 	private String connectionUrl;
 	private int maxCount = -1;
-	private List<Record> loadedRecords;
+	private List<Record> records;
 	private ObserverAction action;
 	
 	public Observer(String connectionUrl){
 		this.connectionUrl = connectionUrl;
 		this.maxCount = -1;
-		this.loadedRecords = new ArrayList<Record>();
+		this.records = new ArrayList<Record>();
 		this.action = null;
 	}
 	
@@ -27,6 +27,10 @@ public class Observer extends Thread {
 	
 	public void setAction(ObserverAction action){
 		this.action = action;
+	}
+	
+	public List<Record> getGpsRecords(){
+		return records;
 	}
 	
 	public void run(){
@@ -44,22 +48,22 @@ public class Observer extends Thread {
 					
 					String serialData = new String(rawData);
 					
-					//System.out.println("[" + serialData + "]");
+					// System.out.println(serialData);
 			
 					Record gpsDataRecord = null;
 					try{
 						gpsDataRecord = Parser.parseRecrod(serialData);
 						
-						if (gpsDataRecord != null && gpsDataRecord.isValid() && loadedRecords.contains(gpsDataRecord)){
+						if (gpsDataRecord != null && gpsDataRecord.isValid() && records.contains(gpsDataRecord)){
 							System.out.println(gpsDataRecord);
 							
 							if (this.action != null){
 								this.action.on(gpsDataRecord);
 							}
 							
-							loadedRecords.add(gpsDataRecord);
+							records.add(gpsDataRecord);
 							
-							if (maxCount > 0 && loadedRecords.size() >= maxCount){
+							if (maxCount > 0 && records.size() >= maxCount){
 								readData = false;
 							}
 						}
