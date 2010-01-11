@@ -1,5 +1,6 @@
 
-import db.models.*;
+import static wireless.Retriever.getNetworks;
+import wireless.Network;
 
 /*
  * 
@@ -38,10 +39,12 @@ import db.models.*;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		
+		for(Network network : getNetworks()){
+			System.out.println(network);
+		}
 		
 		// NetworkSignal s = new NetworkSignal();
-		NetworkSignal s = NetworkSignal.find(2);
+		//NetworkSignal s = NetworkSignal.find(2);
 		/*
 		Record r = new Record();
 		
@@ -70,7 +73,7 @@ public class Main {
 		s.setSsid("ssid");
 		*/
 		
-		System.out.println(s);
-		System.out.println(s.getPoint());
+		//System.out.println(s);
+		//System.out.println(s.getPoint());
 	}
 }

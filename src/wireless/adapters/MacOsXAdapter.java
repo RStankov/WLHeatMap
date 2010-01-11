@@ -71,10 +71,19 @@ public class MacOsXAdapter implements Adapter {
 		
 		network.setSsid(matcher.group(1));
 		network.setBssid(matcher.group(2));
-		network.setRssi(matcher.group(4));
+		network.setRssi(getPercentFromRssi(matcher.group(4)));
 		network.setChannel(matcher.group(5));
 		network.setEncryption(matcher.group(8));
 				
 		return network;
+	}
+	
+	private String getPercentFromRssi(String rssi){
+		int signal = Integer.parseInt(rssi);
+		int maxSignal = -10;
+		int disassociationSignal = -130;
+		int value = 100 - 80 * (maxSignal - signal) / (maxSignal - disassociationSignal);
+		
+		return new Integer(value).toString();
 	}
 }
