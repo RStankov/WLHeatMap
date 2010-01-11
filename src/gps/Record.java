@@ -5,6 +5,22 @@ public class Record {
     private String longitude 		= "";
     private String quality 			= "";    
     private String satelliteCount	= "";
+    
+    public Record(){
+    	
+    }
+    
+    public Record(String latitude, String longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
+    }
+    
+    public Record(String latitude, String longitude, String quality, String satelliteCount) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.quality = quality;
+		this.satelliteCount = satelliteCount;
+    }
 	
 	public String getLatitude() {
 		return latitude;
@@ -44,5 +60,17 @@ public class Record {
 	
 	public String toString(){
 		return "<Gps::Record latitude:" + latitude + " longitude:" + longitude + " quality: " + quality + " satelliteCount: " + satelliteCount + ">";
+	}
+	
+	public boolean equals(Record record){
+		String rLatitude = record.latitude;
+		rLatitude.substring(0, rLatitude.indexOf(".") + 4);
+		
+		String rLongitude = record.longitude;
+		rLongitude.substring(0, rLongitude.indexOf(".") + 4);
+		
+		return record != null && 
+			rLatitude.equals(latitude.substring(0, latitude.indexOf(".") + 4)) &&  
+			rLongitude.equals(longitude.substring(0, longitude.lastIndexOf(".") + 4));
 	}
 }
