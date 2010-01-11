@@ -63,13 +63,17 @@ public class Record {
 	}
 	
 	public boolean equals(Record record){
+		if (record == null){
+			return false;
+		}
+		
 		String rLatitude = record.latitude;
-		rLatitude.substring(0, rLatitude.indexOf(".") + 4);
+		rLatitude = rLatitude.substring(0, rLatitude.indexOf(".") + 4);
 		
 		String rLongitude = record.longitude;
-		rLongitude.substring(0, rLongitude.indexOf(".") + 4);
+		rLongitude = rLongitude.substring(0, rLongitude.indexOf(".") + 4);
 		
-		return record != null && 
+		return 
 			rLatitude.equals(latitude.substring(0, latitude.indexOf(".") + 4)) &&  
 			rLongitude.equals(longitude.substring(0, longitude.lastIndexOf(".") + 4));
 	}

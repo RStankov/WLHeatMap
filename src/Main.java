@@ -1,6 +1,8 @@
 
 import static wireless.Retriever.getNetworks;
 import wireless.Network;
+import bluetooth.*;
+import gps.Record;
 
 /*
  * 
@@ -39,10 +41,19 @@ import wireless.Network;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
+		/*
+		Observer o = new Observer("btspp://001C88006D7D:1;authenticate=false;encrypt=false;master=false");
+		o.setMaxRecords(4);
+		o.start();
+		*/
+		
+		
+		//new Daemon("001C88006D7D");
+		/*
 		for(Network network : getNetworks()){
 			System.out.println(network);
 		}
-		
+		*/
 		// NetworkSignal s = new NetworkSignal();
 		//NetworkSignal s = NetworkSignal.find(2);
 		/*

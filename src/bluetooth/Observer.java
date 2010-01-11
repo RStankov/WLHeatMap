@@ -8,17 +8,24 @@ import gps.Parser;
 
 public class Observer extends Thread {
 	private String connectionUrl;
+	private int maxCount = -1;
+	private int count = 0;
 	
 	public Observer(String connectionUrl){
 		this.connectionUrl = connectionUrl;
 	}
 	
+	public void setMaxRecords(int value){
+		maxCount = value;
+	}
+	
 	public void run(){
 		try{
-			StreamConnection connection = (StreamConnection)Connector.open(connectionUrl);
+			StreamConnection connection = (StreamConnection) Connector.open(connectionUrl);
 			InputStream in = connection.openInputStream();
 
 			boolean readData = true;
+			Record previousGpsRecord = null; 
 			while(readData == true){			
 				int length = in.available();
 
@@ -28,21 +35,25 @@ public class Observer extends Thread {
 					
 					String serialData = new String(rawData);
 					
-					System.out.println("[" + serialData + "]");
+					//System.out.println("[" + serialData + "]");
 			
 					Record gpsDataRecord = null;
 					try{
 						gpsDataRecord = Parser.parseRecrod(serialData);
 						
-						System.out.println(gpsDataRecord);
-						
-						if (gpsDataRecord.isValid()){
-							readData = true;
+						if (gpsDataRecord != null && gpsDataRecord.isValid() && !gpsDataRecord.equals(previousGpsRecord)){
+							System.out.println(gpsDataRecord);
 							
-							// TODO - work
+							previousGpsRecord = gpsDataRecord;
+							
+							count++;
+							
+							if (maxCount > 0 && count >= maxCount){
+								readData = false;
+							}
 						}
 					} catch (Exception e){
-						System.out.println("GPS data parsing exception");
+						System.out.println("GPS data parsing exception:" + e.getMessage());
 					}
 				}
 			}
