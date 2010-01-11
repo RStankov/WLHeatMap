@@ -53,22 +53,22 @@ public class Observer extends Thread {
 					Record gpsDataRecord = null;
 					try{
 						gpsDataRecord = Parser.parseRecrod(serialData);
-						
-						if (gpsDataRecord != null && gpsDataRecord.isValid() && records.contains(gpsDataRecord)){
-							System.out.println(gpsDataRecord);
-							
-							if (this.action != null){
-								this.action.on(gpsDataRecord);
-							}
-							
-							records.add(gpsDataRecord);
-							
-							if (maxCount > 0 && records.size() >= maxCount){
-								readData = false;
-							}
-						}
 					} catch (Exception e){
 						System.out.println("GPS data parsing exception:" + e.getMessage());
+					}
+					
+					if (gpsDataRecord != null && gpsDataRecord.isValid() && !records.contains(gpsDataRecord)){
+						// System.out.println(gpsDataRecord);
+						
+						if (this.action != null){
+							this.action.on(gpsDataRecord);
+						}
+						
+						records.add(gpsDataRecord);
+						
+						if (maxCount > 0 && records.size() >= maxCount){
+							readData = false;
+						}
 					}
 				}
 			}
