@@ -66,16 +66,7 @@ public class SignalPoint extends BaseModel {
 	}
     
 	public String toString(){
-		return  latitude.substring(0, 9) + ", " + latitude.substring(0, 9);
-		/*
-		"<signal_point " +
-		"id:" 				+ id 				+ " " +
-		"latitude:" 		+ latitude 			+ " " +
-		"latitude:"		 	+ latitude 			+ " " +
-		"quality:"			+ quality 			+ " " +
-		"satelliteCount:"	+ satelliteCount 	+ 
-		">";
-		*/
+		return (latitude.length() > 9 ? latitude.substring(0, 9) : latitude) + ", " + (longitude.length() > 9 ? longitude.substring(0, 9) : longitude);
 	}
 	
 	protected PreparedStatement getCreateStatement() throws SQLException {
