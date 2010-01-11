@@ -18,11 +18,11 @@ public class NetworkWaypoint extends BaseWaypoint {
 	public int getSize(){
 		int rssi = Math.abs(Integer.parseInt(network.getRssi()));
 		
-		if (rssi < 45)  return 12;
-		if (rssi < 65)  return 10;
+		if (rssi < 45)  return 4;
+		if (rssi < 65)  return 6;
 		if (rssi < 85)  return 8;
-		if (rssi < 100) return 6;
+		if (rssi < 100) return 10;
 		
-		return 4;
+		return 12;
 	}
 }
