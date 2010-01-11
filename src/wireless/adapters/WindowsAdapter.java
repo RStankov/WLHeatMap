@@ -29,7 +29,7 @@ public class WindowsAdapter implements Adapter {
 		
 		try {
 			final Pattern NETWORK_PATTERN = Pattern.compile("(?i)\\b[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}\\b");
-			final Pattern FULL_NETWORK_PATTERN = Pattern.compile("(?i).*(SSID: )((\\b[\\w\\-\\.]*\\b)|\\s).*(\\b1?\\d{1,2}\\b%).*(Default authentication algorithm: )(\\b[\\w\\-]+\\b).*(Default cipher algorithm: )(\\b\\w+\\b).*");
+			final Pattern FULL_NETWORK_PATTERN = Pattern.compile("(?i).*(SSID: )((\\b[\\w\\-\\.]*\\b)|\\s).*(\\b1?\\d{1,2}\\b)%.*(Default authentication algorithm: )(\\b[\\w\\-]+\\b).*(Default cipher algorithm: )(\\b\\w+\\b).*");
 			final Pattern MAC_PATTERN = Pattern.compile("(?i).*(SSID: )((\\b[\\w\\-\\.]*\\b)|\\s).*([0-9a-z]{1,2}:[0-9a-z]{1,2}:[0-9a-z]{1,2}:[0-9a-z]{1,2}:[0-9a-z]{1,2}:[0-9a-z]{1,2})");
 			
 			ArrayList<String> lines = new ArrayList<String>();
