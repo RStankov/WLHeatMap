@@ -14,7 +14,8 @@ public class CacheTileProvider extends TileFactoryInfo {
 	}
 	
 	private CacheTileProvider(){
-		super(1, 16, 17, 256, true, true, "file://" + getCurrentDirectory() + "/assets/map_cache", "x", "y", "z");
+		super(1, 16, 17, 256, true, true, getCurrentDirectory() + File.separator + 
+				"assets" + File.separator + "map_cache", "x", "y", "z");
 	}
 	
 	private static String getCurrentDirectory(){
@@ -26,6 +27,10 @@ public class CacheTileProvider extends TileFactoryInfo {
 	}
 
 	public String getTileUrl(int x, int y, int zoom){
-		return baseURL + "/" + (17 - zoom) + "_" + x + "_" + y + ".png";
+		try {
+			return new File(baseURL + File.separator + (17 - zoom) + "_" + x + "_" + y + ".png").toURI().toString();
+		} catch(Exception e){
+			return "";
+		}
 	}
 }
