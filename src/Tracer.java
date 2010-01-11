@@ -6,10 +6,13 @@ import static wireless.Retriever.getNetworks;
 import gps.Record;
 
 public class Tracer {
+	private static final String DEVICE_NAME = "001C88006D7D";
+	private static final int MAX_RECORDS = 1;
+	
 	public static void main(String[] args) throws Exception {
 		try {
-			Observer o = new Observer("btspp://001C88006D7D:1;authenticate=false;encrypt=false;master=false");
-			o.setMaxRecords(4);
+			Observer o = new Observer(DEVICE_NAME);
+			o.setMaxRecords(MAX_RECORDS);
 			o.setAction(new ObserverAction(){
 				@Override
 				public void on(Record record) {
