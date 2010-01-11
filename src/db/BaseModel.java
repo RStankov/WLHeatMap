@@ -61,20 +61,20 @@ public abstract class BaseModel {
 	private void create() throws SQLException {
 		PreparedStatement stmt	= null;
 		ResultSet rs			= null;
-		Connection c = DatabaseConnection.getConnection();
+		Connection c = DatabaseConnection.getConnection(); 
 		
-		try {
+		try {			
 			c.setAutoCommit(false);
 			
 			stmt = getCreateStatement();
 			stmt.executeUpdate();
 			
+			c.commit();
+			
 			rs = c.createStatement().executeQuery("SELECT last_insert_rowid() AS [ID]");
 			rs.next();
 			
-			this.id = rs.getInt("ID");
-		
-			c.commit();
+			this.id = rs.getInt("ID");			
 		} catch (Exception e){
 			c.rollback();
 			throw new DatabaseException("Can't create", e);

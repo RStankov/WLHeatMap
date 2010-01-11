@@ -35,7 +35,7 @@ public class Initializer {
 			"latitude 			VARCHAR(255), " + 
 	    	"longitude 			VARCHAR(255), " + 
 	    	"quality 			VARCHAR(255), " + 
-	    	"satelliteCount		VARCHAR(255) "
+	    	"satelliteCount		VARCHAR(255)"
 		);
 	}
 	
