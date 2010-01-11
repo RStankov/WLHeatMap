@@ -1,5 +1,7 @@
 package bluetooth;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.io.*;
 import javax.microedition.io.*;
 
@@ -9,10 +11,11 @@ import gps.Parser;
 public class Observer extends Thread {
 	private String connectionUrl;
 	private int maxCount = -1;
-	private int count = 0;
+	private List<Record> loadedRecords;
 	
 	public Observer(String connectionUrl){
 		this.connectionUrl = connectionUrl;
+		this.loadedRecords = new ArrayList<Record>();
 	}
 	
 	public void setMaxRecords(int value){
@@ -25,7 +28,6 @@ public class Observer extends Thread {
 			InputStream in = connection.openInputStream();
 
 			boolean readData = true;
-			Record previousGpsRecord = null; 
 			while(readData == true){			
 				int length = in.available();
 
@@ -41,14 +43,12 @@ public class Observer extends Thread {
 					try{
 						gpsDataRecord = Parser.parseRecrod(serialData);
 						
-						if (gpsDataRecord != null && gpsDataRecord.isValid() && !gpsDataRecord.equals(previousGpsRecord)){
+						if (gpsDataRecord != null && gpsDataRecord.isValid() && loadedRecords.contains(gpsDataRecord)){
 							System.out.println(gpsDataRecord);
 							
-							previousGpsRecord = gpsDataRecord;
+							loadedRecords.add(gpsDataRecord);
 							
-							count++;
-							
-							if (maxCount > 0 && count >= maxCount){
+							if (maxCount > 0 && loadedRecords.size() >= maxCount){
 								readData = false;
 							}
 						}
