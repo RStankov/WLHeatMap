@@ -6,6 +6,8 @@ import static wireless.Retriever.getNetworks;
 import gps.Record;
 
 public class Tracer {
+	// Device Uri:  "btspp://001C88006D7D:1;authenticate=false;encrypt=false;master=false"
+	// Device Name: "001C88006D7D"
 	private static final String DEVICE_NAME = "001C88006D7D";
 	private static final int MAX_RECORDS = 1;
 	
