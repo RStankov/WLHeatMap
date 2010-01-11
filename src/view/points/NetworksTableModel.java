@@ -33,7 +33,7 @@ public class NetworksTableModel extends AbstractTableModel {
 		switch(columnIndex){
 			case 0: return network.getSsid();
 			case 1: return network.getBssid();
-			case 2: return network.getRssi();
+			case 2: return network.getRssi() + "%";
 			case 3: return network.getEncryption();
 			case 4: return network.getChannel();
 			case 5: return network.getSpeed();

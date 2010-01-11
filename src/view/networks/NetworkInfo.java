@@ -103,7 +103,7 @@ public class NetworkInfo extends JPanel {
 		} else {
 			ssidValue.setText(network.getSsid());
 			bssidValue.setText(network.getBssid());
-			rssiValue.setText(network.getRssi());
+			rssiValue.setText(network.getRssi() + "%");
 			encryptionValue.setText(network.getEncryption());
 			channelValue.setText(network.getChannel());
 			speedValue.setText(network.getSpeed());
