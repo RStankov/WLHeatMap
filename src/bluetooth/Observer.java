@@ -12,14 +12,21 @@ public class Observer extends Thread {
 	private String connectionUrl;
 	private int maxCount = -1;
 	private List<Record> loadedRecords;
+	private ObserverAction action;
 	
 	public Observer(String connectionUrl){
 		this.connectionUrl = connectionUrl;
+		this.maxCount = -1;
 		this.loadedRecords = new ArrayList<Record>();
+		this.action = null;
 	}
 	
 	public void setMaxRecords(int value){
 		maxCount = value;
+	}
+	
+	public void setAction(ObserverAction action){
+		this.action = action;
 	}
 	
 	public void run(){
@@ -46,6 +53,10 @@ public class Observer extends Thread {
 						if (gpsDataRecord != null && gpsDataRecord.isValid() && loadedRecords.contains(gpsDataRecord)){
 							System.out.println(gpsDataRecord);
 							
+							if (this.action != null){
+								this.action.on(gpsDataRecord);
+							}
+							
 							loadedRecords.add(gpsDataRecord);
 							
 							if (maxCount > 0 && loadedRecords.size() >= maxCount){
@@ -61,7 +72,7 @@ public class Observer extends Thread {
 			in.close();
 			connection.close();
 			
-		}catch(IOException ioe){
+		} catch(IOException ioe){
 			ioe.printStackTrace();
 		}		
 	}
