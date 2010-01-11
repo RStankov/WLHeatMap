@@ -1,6 +1,8 @@
 package gps;
 
 public class Record {
+	private static final int EQUALS_PRECISION = 4;
+	
     private String latitude 		= "";
     private String longitude 		= "";
     private String quality 			= "";    
@@ -68,13 +70,13 @@ public class Record {
 		}
 		
 		String rLatitude = record.latitude;
-		rLatitude = rLatitude.substring(0, rLatitude.indexOf(".") + 4);
+		rLatitude = rLatitude.substring(0, rLatitude.indexOf(".") + EQUALS_PRECISION);
 		
 		String rLongitude = record.longitude;
-		rLongitude = rLongitude.substring(0, rLongitude.indexOf(".") + 4);
+		rLongitude = rLongitude.substring(0, rLongitude.indexOf(".") + EQUALS_PRECISION);
 		
 		return 
-			rLatitude.equals(latitude.substring(0, latitude.indexOf(".") + 4)) &&  
-			rLongitude.equals(longitude.substring(0, longitude.lastIndexOf(".") + 4));
+			rLatitude.equals(latitude.substring(0, latitude.indexOf(".") + EQUALS_PRECISION)) &&  
+			rLongitude.equals(longitude.substring(0, longitude.lastIndexOf(".") + EQUALS_PRECISION));
 	}
 }
